@@ -1,24 +1,20 @@
-import 'dotenv/config'
-import { fileURLToPath, URL } from 'node:url'
+import 'dotenv/config';
+import { fileURLToPath, URL } from 'node:url';
 
-import { defineConfig } from 'vite'
-import vue from '@vitejs/plugin-vue'
-
-// eslint-disable-next-line import/no-extraneous-dependencies
-import eslintPlugin from 'vite-plugin-eslint'
+import { defineConfig } from 'vite';
+import vue from '@vitejs/plugin-vue';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: process.env.NODE_ENV === 'production' ? `/${process.env.REPOSITORY_NAME}/` : '/',
-  plugins: [
-    vue(),
-    eslintPlugin({
-      include: ['src/**/*.js', 'src/**/*.vue', 'src/*.js', 'src/*.vue']
-    })
-  ],
+  base:
+    process.env.NODE_ENV === 'production'
+      ? `/${process.env.REPOSITORY_NAME}/`
+      : '/',
+  plugins: [vue()],
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
-    }
-  }
-})
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+    extensions: ['.vue', '.js'],
+  },
+});

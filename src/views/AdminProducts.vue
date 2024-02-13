@@ -1,5 +1,5 @@
 <template>
-  <div> Home page </div>
+  <div> 後臺產品管理 </div>
 </template>
 
 <script setup>

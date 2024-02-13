@@ -1,22 +1,54 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
-
-const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: () => import('../views/HomeView.vue')
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/AboutView.vue')
-  }
-]
+import { createRouter, createWebHashHistory } from 'vue-router';
+import HomeLayout from '@/views/HomeLayout';
 
 const router = createRouter({
   history: createWebHashHistory(),
-  linkActiveClass: 'active',
-  routes
-})
+  routes: [
+    {
+      path: '/',
+      name: 'HomeLayout',
+      component: HomeLayout,
+      children: [
+        { path: '', name: 'Home', component: () => import('@/views/HomeView') },
+        {
+          path: 'products',
+          name: 'Products',
+          component: () => import('@/views/ProductsView'),
+        },
 
-export default router
+        {
+          path: 'cart',
+          name: 'Cart',
+          component: () => import('@/views/CartView'),
+        },
+        {
+          path: 'login',
+          name: 'Login',
+          component: () => import('@/views/LoginView'),
+        },
+        {
+          path: 'product/:id',
+          name: 'Product',
+          component: () => import('@/views/ProductView'),
+        },
+      ],
+    },
+    {
+      path: '/admin',
+      name: 'adminLayout',
+      component: () => import('@/views/AdminLayout'),
+      children: [
+        {
+          path: 'products',
+          component: () => import('@/views/AdminProducts'),
+        },
+        {
+          path: 'orders',
+          component: () => import('@/views/AdminOrders'),
+        },
+      ],
+    },
+  ],
+});
+
+export default router;
